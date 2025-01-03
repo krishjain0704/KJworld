@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacker Login</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Courier New', Courier, monospace; /* Hacker-style font */
+            background-color: #000;
+            color: #0f0;
+            overflow: hidden; /* Hide overflow to prevent scroll bars */
+        }
+
+        .matrix {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Place behind other content */
+        }
+
+        .matrix span {
+            position: absolute;
+            top: -100px; /* Start off screen */
+            left: 0;
+            opacity: 0.5; /* Semi-transparent */
+            color: #0f0; /* Green color */
+            font-family: monospace; /* Monospace font for the matrix effect */
+            font-size: 20px;
+            animation: fall 2s linear infinite; /* Animation to fall down */
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px);
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(100vh); /* Move to bottom of screen */
+                opacity: 0; /* Fade out at bottom */
+            }
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-form {
+            background-color: rgba(0, 0, 0, 0.8); /* Darker background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+            text-align: center;
+        }
+
+        .login-form h2 {
+            margin-bottom: 20px;
+        }
+
+        .login-form input {
+            display: block;
+            width: calc(100% - 20px);
+            margin: 10px auto;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #000;
+            color: #0f0;
+            font-size: 1em;
+            box-shadow: 0 0 10px #0f0;
+        }
+
+        .login-form button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #0f0;
+            border: 2px solid #0f0;
+            color: #000;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 5px;
+            font-family: 'Courier New', Courier, monospace; /* Haunted or hacker-style font */
+            text-shadow: 0 0 5px #0f0;
+            transition: all 0.3s;
+        }
+
+        .login-form button:hover {
+            background: #00ff00;
+            color: #000;
+            box-shadow: 0 0 20px #0f0;
+        }
+
+        .login-form button:active {
+            background: #0f0;
+            box-shadow: 0 0 5px #0f0;
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+    <!-- Matrix animation -->
+    <div class="matrix">
+        <!-- JavaScript will generate matrix characters here -->
+    </div>
+
+    <div class="container">
+        <form class="login-form" onsubmit="handleLogin(event)">
+            <h2>Login</h2>
+            <input type="text" id="name" name="name" placeholder="Name" required>
+            <input type="text" id="username" name="username" placeholder="Username" required>
+            <input type="email" id="email" name="email" placeholder="Email" required>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <script>
+        // Function to generate matrix characters
+        function generateMatrixChars() {
+            const matrixContainer = document.querySelector('.matrix');
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            const numChars = 100; // Number of characters to create
+
+            for (let i = 0; i < numChars; i++) {
+                const charSpan = document.createElement('span');
+                charSpan.textContent = characters.charAt(Math.floor(Math.random() * characters.length));
+                charSpan.style.left = `${Math.random() * 100}%`; // Random horizontal position
+                charSpan.style.animationDelay = `${Math.random()}s`; // Random animation delay
+                matrixContainer.appendChild(charSpan);
+            }
+        }
+
+        generateMatrixChars(); // Call the function to generate matrix characters
+
+        // Form submission handler
+        function handleLogin(event) {
+            event.preventDefault();
+            window.location.href = 'progress.html'; // Redirect to the progress bar page
+        }
+    </script>
+</body>
+</html>

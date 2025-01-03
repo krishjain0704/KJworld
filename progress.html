@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress Bar</title>
+    <style>
+        @font-face {
+            font-family: 'MidwinterFire';
+            src: url('MidwinterFire.ttf'); /* Ensure this font file is in the same directory or provide the correct path */
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #0f0;
+            font-family: 'MidwinterFire', 'Courier New', Courier, monospace; /* Haunted or hacker-style font */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden; /* Hide overflow to prevent scroll bars */
+        }
+
+        .progress-container {
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .progress-bar {
+            width: 100%;
+            background-color: #222;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+            margin-bottom: 20px;
+        }
+
+        .progress-bar-inner {
+            width: 0;
+            height: 30px;
+            background-color: #0f0;
+            transition: width 2s;
+        }
+
+        .progress-bar-text {
+            color: #0f0;
+            font-size: 2em;
+            padding: 20px;
+            font-family: 'MidwinterFire', 'Courier New', Courier, monospace; /* Haunted or hacker-style font */
+        }
+
+        #welcomeText {
+            display: none;
+            font-size: 8vw; /* Responsive font size */
+            color: #0f0;
+            text-shadow: 0 0 10px #0f0;
+        }
+
+        .letter {
+            position: absolute;
+            color: #0f0;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 2em;
+            animation: moveToCenter 5s linear forwards;
+        }
+
+        @keyframes moveToCenter {
+            0% {
+                opacity: 0;
+                transform: translate(0, 0) scale(0);
+            }
+            100% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar">
+            <div class="progress-bar-inner" id="progressBarInner"></div>
+        </div>
+        <div class="progress-bar-text" id="progressBarText"></div>
+        <div id="welcomeText">WELCOME TO DARK WEB</div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const progressBarInner = document.getElementById('progressBarInner');
+            const progressBarText = document.getElementById('progressBarText');
+            const welcomeText = document.getElementById('welcomeText');
+
+            let width = 0;
+            const interval = setInterval(() => {
+                width += 1;
+                progressBarInner.style.width = `${width}%`;
+                progressBarText.textContent = `${width}%`;
+
+                if (width >= 100) {
+                    clearInterval(interval);
+                    progressBarText.style.display = 'none';
+                    welcomeText.style.display = 'block';
+                    triggerLetterAnimation();
+                }
+            }, 20);
+        });
+
+        function triggerLetterAnimation() {
+            const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            const totalLetters = 500; // Increase the number of letters significantly
+            const animationDuration = 10; // Animation duration in seconds
+
+            for (let i = 0; i < totalLetters; i++) {
+                const letter = document.createElement('div');
+                letter.textContent = letters.charAt(Math.floor(Math.random() * letters.length));
+                letter.className = 'letter';
+                document.body.appendChild(letter);
+
+                // Set initial positions from all sides towards the center
+                let randomSide = Math.floor(Math.random() * 4);
+                switch (randomSide) {
+                    case 0: // From top
+                        letter.style.top = '-10%';
+                        letter.style.left = `${Math.random() * 100}vw`;
+                        break;
+                    case 1: // From bottom
+                        letter.style.bottom = '-10%';
+                        letter.style.left = `${Math.random() * 100}vw`;
+                        break;
+                    case 2: // From left
+                        letter.style.left = '-10%';
+                        letter.style.top = `${Math.random() * 100}vh`;
+                        break;
+                    case 3: // From right
+                        letter.style.right = '-10%';
+                        letter.style.top = `${Math.random() * 100}vh`;
+                        break;
+                }
+
+                // Adjust animation delay to make it start slow and end fast
+                letter.style.animationDelay = `${Math.random() * animationDuration}s`;
+                letter.style.animationDuration = `${Math.random() * (animationDuration / 2) + (animationDuration / 2)}s`;
+            }
+        }
+    </script>
+</body>
+</html>

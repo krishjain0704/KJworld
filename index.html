@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Hacker Theme</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Creepster', cursive;
+            color: #0f0;
+            background: #000;
+            overflow: hidden;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            border-bottom: 1px solid #0f0;
+        }
+
+        header a {
+            color: #0f0;
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s;
+        }
+
+        header a:hover {
+            color: #ff0000;
+        }
+
+        .hero {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 70vh;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            text-shadow: 0 0 10px #0f0;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            margin-top: 20px;
+            text-shadow: 0 0 5px #0f0;
+        }
+
+        .hero button {
+            margin-top: 30px;
+            padding: 10px 20px;
+            background: #0f0;
+            border: 2px solid #0f0;
+            color: #000;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 5px;
+            font-family: 'Creepster', cursive;
+            text-shadow: 0 0 10px #0f0;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(0, 255, 0, 0.2);
+            transform: rotate(45deg);
+            transition: all 0.3s;
+            z-index: 1;
+        }
+
+        .hero button:hover::before {
+            top: -30%;
+            left: -30%;
+        }
+
+        .hero button:hover {
+            background: #00ff00;
+            color: #000;
+            box-shadow: 0 0 20px #0f0;
+        }
+
+        .hero button:active {
+            background: #0f0;
+            box-shadow: 0 0 5px #0f0;
+            transform: scale(0.95);
+        }
+
+        .terminal {
+            background: #111;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+        }
+
+        .terminal input {
+            width: 100%;
+            background: #000;
+            border: none;
+            color: #0f0;
+            font-size: 1em;
+            padding: 10px;
+        }
+
+        .matrix {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: black;
+            overflow: hidden;
+        }
+
+        .matrix span {
+            position: absolute;
+            top: 0;
+            font-size: 20px;
+            animation: fall linear infinite;
+            opacity: 0.8;
+            color: #0f0;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100%);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="matrix"></div>
+    <header>
+        <div>LOGO</div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Services</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header>
+    <div class="hero">
+        <div>
+            <h1>Welcome to the Hacker Portal</h1>
+            <p>Explore the world of hacking and cyber security.</p>
+            <button onclick="window.location.href='login.html'">Get Started</button>
+        </div>
+    </div>
+    <div class="terminal">
+        <h2>Interactive Terminal</h2>
+        <input type="text" placeholder="Type a command...">
+    </div>
+
+    <script>
+        // Matrix animation setup
+        const matrix = document.querySelector('.matrix');
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        const numChars = 200; // Number of characters
+
+        for (let i = 0; i < numChars; i++) {
+            const span = document.createElement('span');
+            span.style.left = Math.random() * 100 + 'vw';
+            span.style.animationDuration = Math.random() * 3 + 3 + 's'; // Speed
+            span.style.animationDelay = Math.random() * 5 + 's'; // Random start time
+            span.innerHTML = chars.charAt(Math.floor(Math.random() * chars.length));
+            matrix.appendChild(span);
+        }
+
+        // Interactive terminal functionality (simplified example)
+        const terminalInput = document.querySelector('.terminal input');
+        terminalInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const command = e.target.value.toLowerCase();
+                e.target.value = '';
+
+                if (command === 'help') {
+                    alert('Available commands: help, home, about, services, contact');
+                } else if (['home', 'about', 'services', 'contact'].includes(command)) {
+                    alert(`Navigating to ${command} page...`);
+                } else {
+                    alert('Unknown command. Type "help" for a list of commands.');
+                }
+            }
+        });
+    </script>
+</body>
+</html>
